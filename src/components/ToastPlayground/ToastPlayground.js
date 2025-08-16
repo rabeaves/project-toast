@@ -1,6 +1,8 @@
 import React from "react";
 
 import Button from "../Button";
+import Toast from "../Toast";
+import useToggle from "../../hooks/use-toggle";
 
 import styles from "./ToastPlayground.module.css";
 
@@ -9,6 +11,7 @@ const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 function ToastPlayground() {
   const [messageText, setMessageText] = React.useState("");
   const [variantType, setVariantType] = React.useState(VARIANT_OPTIONS[0]);
+  const [isShown, toggleIsShown] = useToggle(false);
 
   return (
     <div className={styles.wrapper}>
@@ -16,6 +19,14 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
+
+      {isShown && (
+        <Toast
+          variant={variantType}
+          message={messageText}
+          handleDismiss={toggleIsShown}
+        />
+      )}
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -55,19 +66,13 @@ function ToastPlayground() {
                 </label>
               );
             })}
-
-            {/* TODO Other Variant radio buttons here */}
           </div>
         </div>
 
         <div className={styles.row}>
           <div className={styles.label} />
           <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button
-              onClick={() => window.alert(`${variantType} - ${messageText}`)}
-            >
-              Pop Toast!
-            </Button>
+            <Button onClick={() => toggleIsShown(true)}>Pop Toast!</Button>
           </div>
         </div>
       </div>
