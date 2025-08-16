@@ -18,26 +18,15 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ variant, message, handleDismiss }) {
+function Toast({ variant, handleDismiss, children }) {
   const Icon = ICONS_BY_VARIANT[variant];
-
-  React.useEffect(() => {
-    function handleEscape(event) {
-      if (event.code === "Escape") {
-        handleDismiss();
-      }
-    }
-    window.addEventListener("keydown", handleEscape);
-
-    return () => window.removeEventListener("keydown", handleEscape);
-  }, [handleDismiss]);
 
   return (
     <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
         <Icon size={24}></Icon>
       </div>
-      <p className={styles.content}>{message}</p>
+      <p className={styles.content}>{children}</p>
       <button className={styles.closeButton} onClick={handleDismiss}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
