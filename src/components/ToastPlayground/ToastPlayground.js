@@ -4,8 +4,6 @@ import Button from "../Button";
 import ToastShelf from "../ToastShelf";
 import { ToastContext } from "../ToastProvider";
 
-import useToggle from "../../hooks/use-toggle";
-
 import styles from "./ToastPlayground.module.css";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
